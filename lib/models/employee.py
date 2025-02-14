@@ -185,3 +185,15 @@ class Employee:
 
         row = CURSOR.execute(sql, (name,)).fetchone()
         return cls.instance_from_db(row) if row else None
+    
+    @classmethod
+    def find_by_department_id(cls, dept_id):
+        """Return Employee object corresponding to first table row matching specified dept_id"""
+        sql = """
+            SELECT *
+            FROM employees
+            WHERE department_id is ?
+        """
+
+        row = CURSOR.execute(sql, (dept_id,)).fetchone()
+        return cls.instance_from_db(row) if row else None
